@@ -11,13 +11,13 @@ install_zk(){
     mkdir -p $ZK_CLUSTER_INSTALL_PATH
     for i in {1..3}
     do
-        ZK_CONF_PATH=$ZK_CLUSTER_INSTALL_PATH/zk${i}/conf/zoo.cfg
+        ZK_CONF_PATH=$ZK_CLUSTER_INSTALL_PATH/zk${i}/conf/zoo.cfg、
         cp -pr /usr/local/eqmore/zookeeper-3.4.12 $ZK_CLUSTER_INSTALL_PATH/zk${i}
         mkdir -p /data/zk${i}/{data,log}
         echo ${i} > /data/zk${i}/data/myid
         cp /usr/local/eqmore/zookeeper-3.4.12/conf/zoo_sample.cfg $ZK_CONF_PATH
-        sed -i 's/dataDir=.*$/dataDir=/data/zk${i}/data/g' $ZK_CONF_PATH
-        sed -i 's/dataLogDir=.*$/dataLogDir=/data/zk${i}/log/g' $ZK_CONF_PATH
+        sed -i 's/dataDir=.*$\/dataDir=\/data\/zk${i}\/data/g' $ZK_CONF_PATH
+        sed -i 's/dataLogDir=.*$\/dataLogDir=\/data\/zk${i}\/log/g' $ZK_CONF_PATH
         sed -i 's/clientPort=.*$/clientPort=${i}2181/g' $ZK_CONF_PATH
         sed -i 's/server\.\d.*$//g' $ZK_CONF_PATH
         echo "server.1=0.0.0.0:12888:13888" >> $ZK_CONF_PATH
@@ -27,4 +27,10 @@ install_zk(){
     done
 }
 
+install_kafka(){
+    cd /tmp/ && curl -L -O https://mirrors.cnnic.cn/apache/kafka/2.1.0/kafka_2.11-2.1.0.tgz
+    tar zxf kafka_2.11-2.1.0.tgz -C /usr/local/eqmore
+    cd /usr/local/eqmore/kafka_2.11-2.1.0/config/
+    cp server.properties server.properties.bak
+}
 install_zk
