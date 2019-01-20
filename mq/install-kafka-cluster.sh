@@ -11,7 +11,7 @@ install_zk(){
     mkdir -p $ZK_CLUSTER_INSTALL_PATH
     for i in {1..3}
     do
-        ZK_CONF_PATH=$ZK_CLUSTER_INSTALL_PATH/zk${i}/conf/zoo.cfg、
+        ZK_CONF_PATH=$ZK_CLUSTER_INSTALL_PATH/zk${i}/conf/zoo.cfg
         cp -pr /usr/local/eqmore/zookeeper-3.4.12 $ZK_CLUSTER_INSTALL_PATH/zk${i}
         mkdir -p /data/zk${i}/{data,log}
         echo ${i} > /data/zk${i}/data/myid
