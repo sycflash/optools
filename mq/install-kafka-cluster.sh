@@ -16,10 +16,11 @@ install_zk(){
         mkdir -p /data/zk${i}/{data,log}
         echo ${i} > /data/zk${i}/data/myid
         cp /usr/local/eqmore/zookeeper-3.4.12/conf/zoo_sample.cfg $ZK_CONF_PATH
-        sed -i 's/dataDir=.*$\/dataDir=\/data\/zk${i}\/data/g' $ZK_CONF_PATH
-        sed -i 's/dataLogDir=.*$\/dataLogDir=\/data\/zk${i}\/log/g' $ZK_CONF_PATH
-        sed -i 's/clientPort=.*$/clientPort=${i}2181/g' $ZK_CONF_PATH
-        sed -i 's/server\.\d.*$//g' $ZK_CONF_PATH
+        sed -i "s/dataLogDir=.*$//g" $ZK_CONF_PATH
+        sed -i "s/clientPort=.*$/clientPort=${i}2181/g" $ZK_CONF_PATH
+        sed -i "s/dataDir=.*$/dataDir=\/data\/zk${i}\/data/g" $ZK_CONF_PATH
+        sed -i "s/server\.\d.*$//g" $ZK_CONF_PATH
+        echo "dataLogDir=/data/zk${i}/log/" >> $ZK_CONF_PATH
         echo "server.1=0.0.0.0:12888:13888" >> $ZK_CONF_PATH
         echo "server.2=0.0.0.0:22888:23888" >> $ZK_CONF_PATH
         echo "server.3=0.0.0.0:32888:33888" >> $ZK_CONF_PATH
